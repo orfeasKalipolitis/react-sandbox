@@ -6,9 +6,16 @@ import './App.css';
  * Renders a single square as a button
  */
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+  
   render() {
     return (
-      <button className="square">
+      <button className="square" onClick={() => this.props.onClick()}>
         {this.props.value}
       </button>
     );
@@ -19,8 +26,24 @@ class Square extends React.Component {
  * Renders a tick-tack-toe board
  */
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
+  }
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return <Square
+              value={this.state.squares[i]}
+              onClick={() => this.handleClick(i)} 
+            />;
   }
 
   render() {
@@ -30,19 +53,19 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.renderSquare()}
+          {this.renderSquare()}
+          {this.renderSquare()}
         </div>
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.renderSquare()}
+          {this.renderSquare()}
+          {this.renderSquare()}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.renderSquare()}
+          {this.renderSquare()}
+          {this.renderSquare()}
         </div>
       </div>
     );
@@ -75,8 +98,8 @@ class App extends Component {
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
+          </p>
           <Game />
-        </p>
       </div>
     );
   }

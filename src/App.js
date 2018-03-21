@@ -66,7 +66,7 @@ class Board extends React.Component {
  * in the current game (not after a change has been 
  * made in the timeline)
  */
-class Game extends React.Component {
+class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -228,6 +228,40 @@ class Footer extends Component {
   }
 }
 
+class MyClock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+    }
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),  //  function
+      1000                //  timeout
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+  
+  render() {
+    return (
+      <div>
+        <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+      </div>
+    );
+  }
+}
+
 /**
  * Main App class
  */
@@ -245,7 +279,7 @@ class App extends Component {
           </p>
           <MyNavbar />
           <Button bsStyle='danger'>Hello</Button>
-          <h2>It is { new Date().toLocaleTimeString() }</h2>
+          <MyClock />
           <Footer />
           <Game />
       </div>

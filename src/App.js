@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
+
+//  Bootstrao imports
 import { Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
+
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -169,6 +178,56 @@ class Game extends React.Component {
   }
 }
 
+class MyNavbar extends React.Component {
+  render() {
+    return (
+      <Navbar inverse collapseOnSelect>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="#brand">Home</a>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="#">
+              News
+            </NavItem>
+            <NavItem eventKey={2} href="#">
+              Olds
+            </NavItem>
+            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1}>Action</MenuItem>
+              <MenuItem eventKey={3.2}>Another action</MenuItem>
+              <MenuItem eventKey={3.3}>Something else here</MenuItem>
+              <MenuItem divider />
+              <MenuItem eventKey={3.3}>Separated link</MenuItem>
+            </NavDropdown>
+          </Nav>
+          <Nav pullRight>
+            <NavItem eventKey={1} href="#">
+              Link Right-L
+            </NavItem>
+            <NavItem eventKey={2} href="#">
+              Link Right-R
+            </NavItem>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
+}
+
+class Footer extends Component {
+  render () {
+    return (
+      <div className="MyFooter" onClick={() => alert('roar')}>
+        I am a footer, hear my roar
+      </div>
+    );
+  }
+}
+
 /**
  * Main App class
  */
@@ -179,12 +238,15 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           </p>
+          <MyNavbar />
           <Button bsStyle='danger'>Hello</Button>
+          <h2>It is { new Date().toLocaleTimeString() }</h2>
+          <Footer />
           <Game />
       </div>
     );

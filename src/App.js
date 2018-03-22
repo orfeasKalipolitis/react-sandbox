@@ -21,10 +21,33 @@ function fireLasers () {
   clip.play();
 }
 
+class TestintComps extends Component {
+  render() {
+    return (
+      <div>
+        <br />
+        <Button bsStyle="danger" onClick={fireLasers}>
+          Activate Lasers
+        </Button>
+        <br />
+        <Game />
+        <br />
+        <TempCalculator />
+      </div>
+    );
+  }
+}
+
 /**
  * Main App class
  */
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkTests: false,  // Change this to true, in order to show random modules created throughout development
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -35,19 +58,11 @@ class App extends Component {
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-          <MyNavbar />
-          <Button bsStyle="danger" onClick={fireLasers}>
-            Activate Lasers
-          </Button>
-          <br />
-          {false}
-          {true && "lala"}
-          <Footer />
-          <br />
-          <Game />
-          <br />
-          <TempCalculator />
+        </p>
+        <MyNavbar />
+        <br />
+        <Footer />
+        { this.state.checkTests && <TestintComps /> }
       </div>
     );
   }

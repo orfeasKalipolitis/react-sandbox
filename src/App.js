@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Game from './TickTackToe';
 import MyNavbar from './MyNavbar';
 import Footer from './Footer';
+import TempCalculator from './TempCalc';
 
 //  Bootstrap imports
 import { Button } from 'react-bootstrap';
@@ -43,7 +44,10 @@ class App extends Component {
           {false}
           {true && "lala"}
           <Footer />
+          <br />
           <Game />
+          <br />
+          <TempCalculator />
       </div>
     );
   }

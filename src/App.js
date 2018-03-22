@@ -5,6 +5,7 @@ import Game from './TickTackToe';
 import MyNavbar from './MyNavbar';
 import Footer from './Footer';
 import TempCalculator from './TempCalc';
+import RonSwanson from './RonSwanson';
 
 //  Bootstrap imports
 import { Button } from 'react-bootstrap';
@@ -33,6 +34,8 @@ class TestintComps extends Component {
         <Game />
         <br />
         <TempCalculator />
+        <br />
+        <RonSwanson />
       </div>
     );
   }

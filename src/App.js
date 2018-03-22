@@ -203,6 +203,9 @@ class MyNavbar extends React.Component {
               <MenuItem divider />
               <MenuItem eventKey={3.3}>Separated link</MenuItem>
             </NavDropdown>
+            <NavItem eventKey={4} href="#">
+              <MyClock />
+            </NavItem>
           </Nav>
           <Nav pullRight>
             <NavItem eventKey={1} href="#">
@@ -248,15 +251,15 @@ class MyClock extends Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date()
-    });
+    this.setState(() => ({
+      date: new Date(),
+    }));
   }
   
   render() {
     return (
-      <div>
-        <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+      <div className="time">
+        {this.state.date.toLocaleTimeString()}
       </div>
     );
   }
@@ -278,8 +281,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
           </p>
           <MyNavbar />
-          <Button bsStyle='danger'>Hello</Button>
-          <MyClock />
+          <Button bsStyle="danger">Hello</Button>
           <Footer />
           <Game />
       </div>

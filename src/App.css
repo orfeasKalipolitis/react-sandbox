@@ -80,18 +80,22 @@ ol, ul {
 
 .MyFooter {
   clear: both;
+  background: rgb(196, 215, 231);
   padding: 0;
   text-align: center;
   vertical-align: middle;
   line-height: normal;
   margin: 0;
   float: bottom;
-  bottom: 50px;
-  position: relative;
   bottom: 0px;
+  position: relative;
   width: 100%;
 }
 
 .MyFooter:hover {
   cursor: pointer;
+}
+
+.time {
+  color: white;
 }

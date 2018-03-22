@@ -10,6 +10,7 @@ import { MenuItem } from 'react-bootstrap';
 
 
 import logo from './logo.svg';
+import laser from './laser.mp3';
 import './App.css';
 
 /**
@@ -265,6 +266,11 @@ class MyClock extends Component {
   }
 }
 
+function fireLasers () {
+  var clip = new Audio(laser);
+  clip.play();
+}
+
 /**
  * Main App class
  */
@@ -281,7 +287,9 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
           </p>
           <MyNavbar />
-          <Button bsStyle="danger">Hello</Button>
+          <Button bsStyle="danger" onClick={fireLasers}>
+            Activate Lasers
+          </Button>
           <Footer />
           <Game />
       </div>

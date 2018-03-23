@@ -50,8 +50,44 @@ class App extends Component {
     super(props);
     this.state = {
       checkTests: false,  // Change this to true, in order to show random modules created throughout development
+      needBack: false,
+      userPage: null,
+      creatingNewPage: false,
+    }
+
+    // bidnings
+    this.backButtonHandler = this.backButtonHandler.bind(this);
+    this.pageClicked = this.pageClicked.bind(this);
+    this.createPagePage = this.createPagePage.bind(this);
+    this.doneCreatingPage = this.doneCreatingPage.bind(this);
+  }
+  
+  createPagePage() {
+    this.setState(() => ({creatingNewPage: true}));
+  }
+
+  backButtonHandler(need) {
+    this.setState(() => ({
+      needBack: need
+    }));
+    // Back or Home pressed
+    if (!need) {
+      this.setState(() => ({
+        creatingNewPage: false,
+        userPage: null
+      }));
     }
   }
+
+  pageClicked(page, e) {
+    this.setState(() => ({userPage: page}));
+    this.backButtonHandler(true);
+  }
+
+  doneCreatingPage() {
+    this.setState(() => ({creatingNewPage: false}));
+  }
+
   render() {
     return (
       <div className="App">
@@ -67,9 +103,9 @@ class App extends Component {
             </p>
           </header>
         }
-        <MyNavbar />
+        <MyNavbar needBack={this.state.needBack} goBack={() => (this.backButtonHandler(false))} />
         <br />
-        <HomePage />
+        <HomePage doneCreatingPage={this.doneCreatingPage} createPagePage={this.createPagePage} pageClicked={this.pageClicked} userPage={this.state.userPage} creatingNewPage={this.state.creatingNewPage} createBack={() => (this.backButtonHandler(true))} />
         <br />
         <Footer />
         { this.state.checkTests && <TestingComps /> }

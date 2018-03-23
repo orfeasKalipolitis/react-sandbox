@@ -16,7 +16,7 @@ class MyNavbar extends Component {
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#brand">Home</a>
+            <a href="#brand" onClick={this.props.goBack}>Home</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -35,7 +35,12 @@ class MyNavbar extends Component {
               <MenuItem divider />
               <MenuItem eventKey={3.3}>Separated link</MenuItem>
             </NavDropdown>
-            <NavItem eventKey={4} href="#">
+            { this.props.needBack &&
+              <NavItem onClick={this.props.goBack} eventKey={4}>
+                Back  
+              </NavItem>
+            }
+            <NavItem eventKey={5} href="#">
               <MyClock />
             </NavItem>
           </Nav>

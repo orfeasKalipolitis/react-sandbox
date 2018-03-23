@@ -8,15 +8,25 @@ class UserPage extends Component {
     super(props);
     this.state = {
       creatingSubPage: false,
+      manipulatingPage: false,
+      newPageName: '',
       name: ''
     };
     
+    // bindings
     this.handleChange = this.handleChange.bind(this);
     this.handleCreation = this.handleCreation.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.submitNameChange = this.submitNameChange.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   handleChange(e) {
     this.setState({name: e.target.value});
+  }
+  
+  handleNameChange(e) {
+    this.setState({newPageName: e.target.value});
   }
 
   handleCreation(e) {
@@ -24,17 +34,32 @@ class UserPage extends Component {
     this.props.newSubPage(this.state.name);
     this.setState({
       name: '',
-      creatingSubPage: false
+      creatingSubPage: false,
+      manipulatingPage: false
+    });
+  }
+
+  submitNameChange(e) {
+    e.preventDefault();
+    this.props.changePageName(this.state.newPageName);
+    this.cancel();
+  }
+
+  cancel() {
+    this.setState({
+      name: '',
+      creatingSubPage: false,
+      manipulatingPage: false
     });
   }
 
   render() {
     return (
       <div className="UserPageContainer">
-        { !this.state.creatingSubPage ?
+        { !this.state.creatingSubPage && !this.state.manipulatingPage ?
           <div>
             <br />
-            <Button bsStyle="info">Settings</Button>
+            <Button bsStyle="info" onClick={() => (this.setState({manipulatingPage: true}))}>Settings</Button>
             <Button bsStyle="success" onClick={() => (this.setState({creatingSubPage: true}))}>Add subpage</Button>
             <br />
             <h2><p>{this.props.userPage.name}</p></h2>
@@ -42,7 +67,7 @@ class UserPage extends Component {
               <p key={page.toString() + index}>{page.name}</p>
             )) }
           </div>
-          :
+          :  !this.state.manipulatingPage &&
           <div>
             <form onSubmit={this.handleCreation}>
               <label>
@@ -51,7 +76,21 @@ class UserPage extends Component {
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <Button bsStyle="danger" onClick={this.props.cancel}>Cancel</Button>
+            <Button bsStyle="danger" onClick={this.cancel}>Cancel</Button>
+          </div>
+        }
+        { this.state.manipulatingPage &&
+          <div>
+          <form onSubmit={this.submitNameChange}>
+              <label>
+                Page name: 
+                <input autoFocus={true} type="text" value={this.state.newPageName} onChange={this.handleNameChange} />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+            <Button bsStyle="danger" onClick={this.cancel}>Cancel</Button>
+            <br />
+            <Button bsStyle="danger" onClick={this.deletePage}>Delete Page</Button>
           </div>
         }
       </div>

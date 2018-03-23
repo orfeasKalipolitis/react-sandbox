@@ -6,6 +6,7 @@ import MyNavbar from './MyNavbar';
 import Footer from './Footer';
 import TempCalculator from './TempCalc';
 import RonSwanson from './RonSwanson';
+import HomePage from './HomePage';
 
 //  Bootstrap imports
 import { Button } from 'react-bootstrap';
@@ -22,7 +23,7 @@ function fireLasers () {
   clip.play();
 }
 
-class TestintComps extends Component {
+class TestingComps extends Component {
   render() {
     return (
       <div>
@@ -54,7 +55,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
         { this.state.checkTests && 
           <header className="App-header">
             <div>
@@ -68,8 +69,10 @@ class App extends Component {
         }
         <MyNavbar />
         <br />
+        <HomePage />
+        <br />
         <Footer />
-        { this.state.checkTests && <TestintComps /> }
+        { this.state.checkTests && <TestingComps /> }
       </div>
     );
   }

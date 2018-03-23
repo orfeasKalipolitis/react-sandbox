@@ -99,3 +99,16 @@ ol, ul {
 .time {
   color: white;
 }
+
+.userPage {
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 2px;
+  border: 2px solid rgb(53, 125, 138);
+  width: 50%;
+  cursor: pointer;
+}
+
+.userPage:hover {
+  background-color: greenyellow;
+}

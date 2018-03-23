@@ -112,3 +112,7 @@ ol, ul {
 .userPage:hover {
   background-color: greenyellow;
 }
+
+.holySpirit {
+  margin: 5px !important;
+}

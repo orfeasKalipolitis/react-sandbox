@@ -20,6 +20,7 @@ class HomePage extends Component {
     this.pageClicked = this.pageClicked.bind(this);
     this.createSubPage = this.createSubPage.bind(this);
     this.changePageName = this.changePageName.bind(this);
+    this.deleteActivePage = this.deleteActivePage.bind(this);
   }
 
   cancelPageCreation() {
@@ -62,6 +63,16 @@ class HomePage extends Component {
     this.props.updateUserPage(userPagesN[index]);
   }
 
+  deleteActivePage() {
+    let userPagesN = this.state.userPages.slice();
+    let index = userPagesN.indexOf(this.props.userPage);
+
+    delete userPagesN[index];
+
+    this.setState(() => ({userPages: userPagesN}));
+    this.props.updateUserPage(null);
+  }
+
   render() {
     return (
       <div className="home">
@@ -69,7 +80,7 @@ class HomePage extends Component {
           { !this.props.creatingNewPage && !this.props.userPage ?
             <div>
               <span>
-                <Button bsStyle="info">Settings</Button>
+                <Button className="holySpirit" bsStyle="info">Settings</Button>
                 <Button bsStyle="primary" onClick={this.props.createPagePage}>+</Button>
               </span>
               <div id="userPages">
@@ -91,7 +102,7 @@ class HomePage extends Component {
         </div>
         { this.props.userPage &&
           <div className="specifiedPage">
-            <UserPage changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
+            <UserPage deletePage={this.deleteActivePage} changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
           </div>
         }
       </div>

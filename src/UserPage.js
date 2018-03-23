@@ -59,7 +59,7 @@ class UserPage extends Component {
         { !this.state.creatingSubPage && !this.state.manipulatingPage ?
           <div>
             <br />
-            <Button bsStyle="info" onClick={() => (this.setState({manipulatingPage: true}))}>Settings</Button>
+            <Button className="holySpirit" bsStyle="info" onClick={() => (this.setState({manipulatingPage: true}))}>Settings</Button>
             <Button bsStyle="success" onClick={() => (this.setState({creatingSubPage: true}))}>Add subpage</Button>
             <br />
             <h2><p>{this.props.userPage.name}</p></h2>
@@ -76,7 +76,7 @@ class UserPage extends Component {
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <Button bsStyle="danger" onClick={this.cancel}>Cancel</Button>
+            <Button bsStyle="info" onClick={this.cancel}>Cancel</Button>
           </div>
         }
         { this.state.manipulatingPage &&
@@ -88,9 +88,9 @@ class UserPage extends Component {
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <Button bsStyle="danger" onClick={this.cancel}>Cancel</Button>
+            <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Cancel</Button>
             <br />
-            <Button bsStyle="danger" onClick={this.deletePage}>Delete Page</Button>
+            <Button bsStyle="danger" onClick={this.props.deletePage}>Delete Page</Button>
           </div>
         }
       </div>

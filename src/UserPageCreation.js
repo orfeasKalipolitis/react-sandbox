@@ -28,7 +28,7 @@ class UserPageCreator extends Component {
         <form onSubmit={this.handleSuccess}>
           <label>
             Page name: 
-            <input type="text" value={this.state.name} onChange={this.handleChange} />
+            <input autoFocus={true} type="text" value={this.state.name} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit" />
         </form>

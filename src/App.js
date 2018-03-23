@@ -60,6 +60,7 @@ class App extends Component {
     this.pageClicked = this.pageClicked.bind(this);
     this.createPagePage = this.createPagePage.bind(this);
     this.doneCreatingPage = this.doneCreatingPage.bind(this);
+    this.updateUserPage = this.updateUserPage.bind(this);
   }
   
   createPagePage() {
@@ -88,6 +89,10 @@ class App extends Component {
     this.setState(() => ({creatingNewPage: false}));
   }
 
+  updateUserPage(page) {
+    this.setState(() => ({userPage: page}));
+  }
+
   render() {
     return (
       <div className="App">
@@ -105,7 +110,7 @@ class App extends Component {
         }
         <MyNavbar needBack={this.state.needBack} goBack={() => (this.backButtonHandler(false))} />
         <br />
-        <HomePage doneCreatingPage={this.doneCreatingPage} createPagePage={this.createPagePage} pageClicked={this.pageClicked} userPage={this.state.userPage} creatingNewPage={this.state.creatingNewPage} createBack={() => (this.backButtonHandler(true))} />
+        <HomePage updateUserPage={this.updateUserPage} doneCreatingPage={this.doneCreatingPage} createPagePage={this.createPagePage} pageClicked={this.pageClicked} userPage={this.state.userPage} creatingNewPage={this.state.creatingNewPage} createBack={() => (this.backButtonHandler(true))} />
         <br />
         <Footer />
         { this.state.checkTests && <TestingComps /> }

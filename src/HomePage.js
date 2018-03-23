@@ -18,6 +18,7 @@ class HomePage extends Component {
     this.cancelPageCreation = this.cancelPageCreation.bind(this);
     this.submitPageCreation = this.submitPageCreation.bind(this);
     this.pageClicked = this.pageClicked.bind(this);
+    this.createSubPage = this.createSubPage.bind(this);
   }
 
   cancelPageCreation() {
@@ -37,6 +38,18 @@ class HomePage extends Component {
     this.props.pageClicked(page, e)
     //  this.setState(() => ({userPage: page}));
     this.props.createBack();
+  }
+
+  createSubPage(subName) {
+    let userPagesN = this.state.userPages.slice();
+    let index = userPagesN.indexOf(this.props.userPage);
+    if (userPagesN[index].subpages === undefined) {
+      userPagesN[index].subpages = [];
+    }
+    userPagesN[index].subpages.push({name: subName});
+
+    this.setState(() => ({userPages: userPagesN}));
+    this.props.updateUserPage(userPagesN[index]);
   }
 
   render() {
@@ -68,7 +81,7 @@ class HomePage extends Component {
         </div>
         { this.props.userPage &&
           <div className="specifiedPage">
-            <UserPage />
+            <UserPage userPage={this.props.userPage} newSubPage={this.createSubPage} />
           </div>
         }
       </div>

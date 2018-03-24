@@ -23,6 +23,7 @@ class UserPage extends Component {
     this.cancel = this.cancel.bind(this);
     this.handlePostNameChange = this.handlePostNameChange.bind(this);
     this.submitPostNameChange = this.submitPostNameChange.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   handleChange(e) {
@@ -58,6 +59,15 @@ class UserPage extends Component {
     let userPage = Object.assign({}, this.props.userPage);
     let index = userPage.subpages.indexOf(this.state.focusPost);
     userPage.subpages[index].name = this.state.newPostPageName;
+    this.props.updateUserPage(userPage);
+    this.cancel();
+  }
+
+  deletePost() {
+    let userPage = Object.assign({}, this.props.userPage);
+    let index = userPage.subpages.indexOf(this.state.focusPost);
+
+    delete userPage.subpages[index];
     this.props.updateUserPage(userPage);
     this.cancel();
   }
@@ -124,7 +134,7 @@ class UserPage extends Component {
             </form>
             <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Cancel</Button>
             <br />
-            <Button bsStyle="danger" onClick={this.props.deletePost}>Delete Page</Button>
+            <Button bsStyle="danger" onClick={this.deletePost}>Delete Post</Button>
           </div>
         }
       </div>

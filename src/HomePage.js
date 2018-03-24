@@ -12,6 +12,8 @@ class HomePage extends Component {
     super(props);
     this.state = {
       userPages: [],
+      settings: false,
+      suffix: ''
     };
 
     // binds
@@ -22,6 +24,9 @@ class HomePage extends Component {
     this.changePageName = this.changePageName.bind(this);
     this.deleteActivePage = this.deleteActivePage.bind(this);
     this.changePostName = this.changePostName.bind(this);
+    this.handleSuffixChange = this.handleSuffixChange.bind(this);
+    this.submitSuffix = this.submitSuffix.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   cancelPageCreation() {
@@ -83,16 +88,30 @@ class HomePage extends Component {
     this.props.updateUserPage(null);
   }
 
+  handleSuffixChange(e){
+    this.setState({suffix: e.target.value});
+  }
 
+  submitSuffix(e) {
+    e.preventDefault();
+    this.setState(() => ({settings: false}));
+  }
+
+  cancel() {
+    this.setState(() => ({
+      settings: false,
+      suffix: ''
+    }));
+  }
 
   render() {
     return (
       <div className="home">
         <div>
-          { !this.props.creatingNewPage && !this.props.userPage ?
+          { !this.props.creatingNewPage && !this.props.userPage && !this.state.settings ?
             <div>
               <span>
-                <Button className="holySpirit" bsStyle="info">Settings</Button>
+                <Button className="holySpirit" bsStyle="info" onClick={() => (this.setState(() => ({settings: true})))}>Settings</Button>
                 <Button bsStyle="primary" onClick={this.props.createPagePage}>+</Button>
               </span>
               <div id="userPages">
@@ -106,15 +125,28 @@ class HomePage extends Component {
                 </div>
               </div>
             </div>
-          : !this.props.userPage &&
+          : !this.props.userPage && !this.state.settings &&
             <div>
               <UserPageCreator submit={this.submitPageCreation} cancel={this.cancelPageCreation} />
             </div>
           }
         </div>
-        { this.props.userPage &&
+        { this.props.userPage && !this.state.settings &&
           <div className="specifiedPage">
-            <UserPage updateUserPage={this.changePostName} deletePage={this.deleteActivePage} changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
+            <UserPage suf={this.state.suffix} updateUserPage={this.changePostName} deletePage={this.deleteActivePage} changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
+          </div>
+        }
+        { this.state.settings &&
+          <div>
+          <form onSubmit={this.submitSuffix}>
+              <label>
+                Add a suffix to all posts: 
+                <input autoFocus={true} type="text" value={this.state.suffix} onChange={this.handleSuffixChange} />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+            <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Cancel</Button>
+            <br />
           </div>
         }
       </div>

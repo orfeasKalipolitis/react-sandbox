@@ -39,6 +39,7 @@ class UserPage extends Component {
   }
 
   handleCreation(e) {
+    console.log(this.props.suf);
     e.preventDefault();
     this.props.newSubPage(this.state.name);
     this.setState({
@@ -93,15 +94,15 @@ class UserPage extends Component {
             <br />
             <h2><p>{this.props.userPage.name}</p></h2>
             { this.props.userPage.subpages !== undefined && this.props.userPage.subpages.map((page, index) => (
-              <p className="userPost" onClick={() => (this.setState({focusPost: page}))} key={page.toString() + index}>{page.name}</p>
+              <p className="userPost" onClick={() => (this.setState({focusPost: page}))} key={page.toString() + index}>{page.name.concat(this.props.suf)}</p>
             )) }
           </div>
           :  !this.state.manipulatingPage && !this.state.focusPost &&
           <div>
             <form onSubmit={this.handleCreation}>
               <label>
-                Page name: 
-                <input autoFocus={true} type="text" value={this.state.name} onChange={this.handleChange} />
+                Post name: 
+                <input autoFocus={true} type="text" value={this.state.name} onChange={this.handleChange} required />
               </label>
               <input type="submit" value="Submit" />
             </form>
@@ -113,7 +114,7 @@ class UserPage extends Component {
             <form onSubmit={this.submitNameChange}>
               <label>
                 Page name: 
-                <input autoFocus={true} type="text" value={this.state.newPageName} onChange={this.handleNameChange} />
+                <input autoFocus={true} type="text" value={this.state.newPageName} onChange={this.handleNameChange} required />
               </label>
               <input type="submit" value="Submit" />
             </form>
@@ -127,8 +128,8 @@ class UserPage extends Component {
             <h2><p>{this.state.focusPost.name}</p></h2>
             <form onSubmit={this.submitPostNameChange}>
               <label>
-                Post name: 
-                <input autoFocus={true} type="text" value={this.state.newPostPageName} onChange={this.handlePostNameChange} />
+                New Post name: 
+                <input autoFocus={true} type="text" value={this.state.newPostPageName} onChange={this.handlePostNameChange} required />
               </label>
               <input type="submit" value="Submit" />
             </form>

@@ -7,12 +7,15 @@ import { Button } from 'react-bootstrap';
 import UserPageCreator from './UserPageCreation';
 import UserPage from './UserPage';
 
+var FileSaver = require('file-saver')
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userPages: [],
       settings: false,
+      tempSuffix: '',
       suffix: ''
     };
 
@@ -27,6 +30,8 @@ class HomePage extends Component {
     this.handleSuffixChange = this.handleSuffixChange.bind(this);
     this.submitSuffix = this.submitSuffix.bind(this);
     this.cancel = this.cancel.bind(this);
+    this.exportJSON = this.exportJSON.bind(this);
+    this.importJSON = this.importJSON.bind(this);
   }
 
   cancelPageCreation() {
@@ -89,19 +94,53 @@ class HomePage extends Component {
   }
 
   handleSuffixChange(e){
-    this.setState({suffix: e.target.value});
+    this.setState({tempSuffix: e.target.value});
   }
 
   submitSuffix(e) {
     e.preventDefault();
-    this.setState(() => ({settings: false}));
+    this.setState(() => ({
+      settings: false,
+      suffix: this.state.tempSuffix,
+      tempSuffix: ''
+    }));
   }
 
   cancel() {
     this.setState(() => ({
       settings: false,
-      suffix: ''
+      tempSuffix: ''
     }));
+  }
+
+  exportJSON() {
+    let jsonData = '{' + 
+    '\"UserPages\": ' + JSON.stringify(this.state.userPages) + 
+    ', \"suffix\": ' +
+     '\"' + this.state.suffix + '\"' +
+    '}';
+    var blob = new Blob([jsonData], {type: 'text/plain;charset=utf-8'})
+    FileSaver.saveAs(blob, 'project-data.json')
+  }
+
+  importJSON(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+
+    var fr = new FileReader();
+
+    var that = this;
+    fr.onload = function () {
+      let jsonObj = JSON.parse(this.result);
+      that.setState(() => ({
+        userPages: jsonObj.UserPages.slice(),
+        suffix: jsonObj.suffix,
+        tempSuffix: jsonObj.suffix
+      }));
+    }
+
+    fr.readAsText(file);
   }
 
   render() {
@@ -111,7 +150,7 @@ class HomePage extends Component {
           { !this.props.creatingNewPage && !this.props.userPage && !this.state.settings ?
             <div>
               <span>
-                <Button className="holySpirit" bsStyle="info" onClick={() => (this.setState(() => ({settings: true})))}>Settings</Button>
+                <Button className="holySpirit" bsStyle="info" onClick={() => (this.setState(() => ({settings: true, tempSuffix: this.state.suffix})))}>Settings</Button>
                 <Button bsStyle="primary" onClick={this.props.createPagePage}>+</Button>
               </span>
               <div id="userPages">
@@ -138,14 +177,18 @@ class HomePage extends Component {
         }
         { this.state.settings &&
           <div>
-          <form onSubmit={this.submitSuffix}>
+            <span>
+              <Button className="holySpirit" bsStyle="info" onClick={this.exportJSON}>Export JSON</Button>
+              <p>Import a json file: </p><input className="input" type="file" ref="fileUploader" onChange={this.importJSON} />
+            </span>
+            <form onSubmit={this.submitSuffix}>
               <label>
                 Add a suffix to all posts: 
-                <input autoFocus={true} type="text" value={this.state.suffix} onChange={this.handleSuffixChange} />
+                <input autoFocus={true} type="text" value={this.state.tempSuffix} onChange={this.handleSuffixChange} />
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Cancel</Button>
+            <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Back</Button>
             <br />
           </div>
         }

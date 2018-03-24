@@ -21,6 +21,7 @@ class HomePage extends Component {
     this.createSubPage = this.createSubPage.bind(this);
     this.changePageName = this.changePageName.bind(this);
     this.deleteActivePage = this.deleteActivePage.bind(this);
+    this.changePostName = this.changePostName.bind(this);
   }
 
   cancelPageCreation() {
@@ -63,6 +64,15 @@ class HomePage extends Component {
     this.props.updateUserPage(userPagesN[index]);
   }
 
+  changePostName(newUserPage) {
+    let userPagesN = this.state.userPages.slice();
+    let index = userPagesN.indexOf(this.props.userPage);
+    userPagesN[index] = Object.assign({}, newUserPage);
+
+    this.setState(() => ({userPages: userPagesN}));
+    this.props.updateUserPage(userPagesN[index]);
+  }
+
   deleteActivePage() {
     let userPagesN = this.state.userPages.slice();
     let index = userPagesN.indexOf(this.props.userPage);
@@ -72,6 +82,8 @@ class HomePage extends Component {
     this.setState(() => ({userPages: userPagesN}));
     this.props.updateUserPage(null);
   }
+
+
 
   render() {
     return (
@@ -102,7 +114,7 @@ class HomePage extends Component {
         </div>
         { this.props.userPage &&
           <div className="specifiedPage">
-            <UserPage deletePage={this.deleteActivePage} changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
+            <UserPage updateUserPage={this.changePostName} deletePage={this.deleteActivePage} changePageName={this.changePageName} userPage={this.props.userPage} newSubPage={this.createSubPage} />
           </div>
         }
       </div>

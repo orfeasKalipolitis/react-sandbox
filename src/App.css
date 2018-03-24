@@ -116,3 +116,16 @@ ol, ul {
 .holySpirit {
   margin: 5px !important;
 }
+
+.userPost {
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 2px;
+  border: 2px solid rgb(173, 30, 118);
+  width: 50%;
+  cursor: pointer;
+}
+
+.userPost:hover {
+  background-color: rgb(240, 148, 205);
+}

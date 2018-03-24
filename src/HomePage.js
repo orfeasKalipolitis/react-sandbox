@@ -115,9 +115,9 @@ class HomePage extends Component {
 
   exportJSON() {
     let jsonData = '{' + 
-    '\"UserPages\": ' + JSON.stringify(this.state.userPages) + 
-    ', \"suffix\": ' +
-     '\"' + this.state.suffix + '\"' +
+    '"UserPages": ' + JSON.stringify(this.state.userPages) + 
+    ', "suffix": ' +
+     '"' + this.state.suffix + '"' +
     '}';
     var blob = new Blob([jsonData], {type: 'text/plain;charset=utf-8'})
     FileSaver.saveAs(blob, 'project-data.json')

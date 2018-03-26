@@ -150,7 +150,7 @@ class HomePage extends Component {
           { !this.props.creatingNewPage && !this.props.userPage && !this.state.settings ?
             <div>
               <span>
-                <Button className="holySpirit" bsStyle="info" onClick={() => (this.setState(() => ({settings: true, tempSuffix: this.state.suffix})))}>Settings</Button>
+                <a href="#Settings"><Button className="holySpirit" bsStyle="info" onClick={() => (this.setState(() => ({settings: true, tempSuffix: this.state.suffix})))}>Settings</Button></a>
                 <Button bsStyle="primary" onClick={this.props.createPagePage}>+</Button>
               </span>
               <div id="userPages">
@@ -181,14 +181,14 @@ class HomePage extends Component {
               <Button className="holySpirit" bsStyle="info" onClick={this.exportJSON}>Export JSON</Button>
               <p>Import a json file: </p><input className="input" type="file" ref="fileUploader" onChange={this.importJSON} />
             </span>
-            <form onSubmit={this.submitSuffix}>
+            <form onSubmit={this.submitSuffix} id="suffForm">
               <label>
                 Add a suffix to all posts: 
                 <input autoFocus={true} type="text" value={this.state.tempSuffix} onChange={this.handleSuffixChange} />
               </label>
-              <input type="submit" value="Submit" />
             </form>
-            <Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Back</Button>
+            <a href="#Home"><Button bsStyle="success" form="suffForm" type="submit">Submit</Button></a>
+            <a href="#Home"><Button className="holySpirit" bsStyle="info" onClick={this.cancel}>Back</Button></a>
             <br />
           </div>
         }
